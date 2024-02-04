@@ -72,9 +72,55 @@ fn main() {
     * Example: `rustc —explain E0762`
 ## Primitives (Scalar Types)
 ### Integers
+- Integers = whole numbers
+    - Usage: counting, indexing, and arithmetic operations, etc
+- Common types
+    - Signed Integers, can be negative or positive (if you don’t declare this is the default: `i32`)
+        - The numbers in their names represents the number of bits they use to store their values.
+        - `i8`, `i16`, `i32`, and `i64`
+    - Unsigned Integers, can only be positive
+        - The number in their names represents the number of bits they use to store their values (again)
+        - `u8`, `u16`, `u32`, and `u64`
+    - `isize` & `usize`: signed and unsigned integers that can represent the size of a pointer
+    on the current platform
+        - Aka 32 bits long on 32-bit platforms, and 64 bits long on 64 bit platforms
+- Integers can be created using literals, such as `42` or `0xff`, or by using expressions and variables.
+- Math can be performed with these integers of course
+- Bitwise operations can also performed like bitwise and (`&`), bitwise or (`|`), and bitwise not (`!`).
+- Rust can check for overflow at runtime and you can also handle overflows explicitly like by using the `Wrapping` struct arithmetic operations with wrapping behavior instead of panicking
+- Literal int - decimals, binary, hex, etc
+```rust
+println!("Max size of a u32: {}", u32::MAX); // Print out the max size of a u32 int | 4294967295
+println!("Max size of a u64: {}", u64::MAX); // Print out the max size of a u64 int | 18446744073709551615
+
+println!("Max size of a i32: {}", i32::MAX); // Print out the max size of a i32 int | 2147483647
+println!("Max size of a i64: {}", i64::MAX); // Print out the max size of a i64 int | 9223372036854775807
+```
 ### Floats
+- Decimal values: 1000.1, 3.14, etc (.14 is not valid, you need to do 0.14)
+- f32 and f64 are the only types (for bit architecture)
+  - f64 is the default (can be slower on less than 64 bit architecture)
+```rust
+println!("Max size of a f32: {}", f32::MAX); // Print out the max size of a f32 int | 340282350000000000000000000000000000000
+println!("Max size of a f64: {}", f64::MAX); // Print out the max size of a f64 int | 179769313486231570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+```
 ### Boolean
+- True or False - bool
+- For conditional statements
+  - Can use `and`, `not`, and `or` with these of course
+```rust
+let x = 15; 
+if x > 10 { 
+  println!("x is greater than 10");
+} 
+```
 ### Characters
+- Syntax is `char`
+- Is 4 bytes
+```rust
+println!('A') // can be letters like this, but also could be emojis, unicode, and lots of other things (anything 4 bytes in size)
+// These are NOT strings
+```
 ## Variables
 ### Types of Variables
 ### Scope and Shadowing

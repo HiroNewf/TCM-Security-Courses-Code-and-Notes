@@ -65,4 +65,24 @@ fn main() {
     x + y
     }
     ```
-
+### Errors
+* Can see our errors in the Terminal and also in the VSCode IDE before even running it (for certain errors)
+    * Get error code and line number
+* Can run `rustc` commands to explain the errors to you
+    * Example: `rustc —explain E0762`
+## Primitives (Scalar Types)
+### Integers
+### Floats
+### Boolean
+### Characters
+## Variables
+### Types of Variables
+### Scope and Shadowing
+### Suffixes and Underscores
+## Challenge A
+### Challenge A Overview
+### Challenge A Solution
+## Primitives (Compound Types) 
+### Tuples
+### Arrays
+### Slices

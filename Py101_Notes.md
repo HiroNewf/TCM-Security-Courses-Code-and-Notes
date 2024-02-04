@@ -654,7 +654,7 @@ print(to_ord("ABCD")) # [65, 66, 67, 68] returns the int representation of each 
 ```
 ## Extending Python
 ### Python Package Manager
-```python
+```bash
 pip install pwntools
 
 pip list # view installed libraries
@@ -664,7 +664,7 @@ pip freeze # view libraries and version in a format that is easier for pip to re
 pip install -r requirements.txt # install from requirements.txt
 ```
 ### Virtual Enviroments
-```python
+```bash
 pip install virtualenv # Installation
  
 mkdir virtual-demo # Make directory

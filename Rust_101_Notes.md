@@ -123,11 +123,96 @@ println!('A') // can be letters like this, but also could be emojis, unicode, an
 ```
 ## Variables
 ### Types of Variables
+- Three keywords to declare variables
+    - `let`, `let mut`, and `const`
+```rust
+let x = 42; // immutable variable
+let mut x = 42; x = 43; // mutable variable
+const PI: f32 = 3.14159; // constant variable, not mutable and can never be mutable | have to be called in screamcase (all caps)
+const NUMBER: i32 = 17; // Have to declare the anotation type (i32 in this case) instead of there just being a default / autopopulate option
+// const can be placed outside of a function, they are global variables, and they are very fast
+```
 ### Scope and Shadowing
+- Scope = where you can access a variable
+- Variables declared inside a block / function have limited scope (only within that given block of function)
+- Variables declared outside of a block / function have a global scope
+```rust
+let x = 42; // Global scope
+{
+  let y = 43; // Limited scope
+  println!("x: {}, y: {}", x, y); 
+}
+println!("x: {}", x);
+```
+- Shadowing allows you to declare a new variable with the same name as an existing variable in the same scope
+  - Good for changing the value of a varaible without having to change it's name
+```rust
+let x = 42; // First value
+let x = "hello"; // Shadowed value 
+println!("x: {}", x); // prints "hello"
+```
+- Can use this to convert a mutable variable to an inmutable one
+```rust
+let mut x = 42;
+x = 43;
+let x = x;
+println!("x: {}", x);
+```
+- Can remove certain errors/warnings from your terminal output if you want
+```rust
+#![allow(unused)] // allow unused variables
+```
 ### Suffixes and Underscores
+- Suffixes are used to specify the type of a numeric literal
+  - Like `u32`, or `i32`
+```rust
+let x: u32 = 42u32;
+let x: i32 = -42i32; 
+```
+- The u and i represent unsigned and signed numbers respectively
+  - The number is the number of bits in its integer
+- Underscores in Rust can be used to separate large numeric literals for better readability
+  - These underscores have no effect on values
+```rust
+fn main() { 
+  let x = 1_000_000;
+  let y = 0.000_000_001;
+  println!("x = {}, y = {}", x, y); // output is x = 1000000, y = 0.000000001
+}
+
+let x: i32 = 42_i32; // output is 42
+```
 ## Challenge A
 ### Challenge A Overview
+```rust
+fn main() {
+    /* Challenge 1 - Build a program that has the following:
+
+    1) Has a global constant integer named 'birthday' with a value of 1
+    2) Has a local string variable named 'my_name' with your name as the value
+    3) Has a local string variable named 'my_birthday' with your birth month/day (no year) as the value
+    4) Has a local mutable integer variable named 'age' with your current age as the value
+    5) Has a local integer variable named 'new_age' with your age after your birthday as the value
+    6) Prints out 'My name is X and I am X years old. I will turn X on X' 
+
+    */
+}
+```
 ### Challenge A Solution
+```rust
+#![allow(unused)]
+
+const BIRTHDAY: i32 = 1; 
+
+fn main() {
+    let my_name = "Hiro";
+    let my_birthday = "June 31st";
+    let mut age = 99;
+    let new_age = age+BIRTHDAY;
+
+    println!("My name is {} and I am {} years old. I will turn {} on {}.", my_name, age, new_age, my_birthday);
+}
+```
 ## Primitives (Compound Types) 
 ### Tuples
 ### Arrays

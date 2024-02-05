@@ -216,4 +216,40 @@ fn main() {
 ## Primitives (Compound Types) 
 ### Tuples
 ### Arrays
-### Slices
+#### Slices
+## Strings
+### Strings Overview
+### Escaping
+## User Input
+### Modules and Libraries
+### User Input
+## Math
+### Math Operators
+## Dependencies 
+## Challenge B
+### Challenge B Overview
+### Challenge B Solution
+## Control Flow
+### Comparison Operators and Truth Tables
+### Conditional Statements
+### Match
+### Loops
+## Functions
+## Challenge C
+### Challenge C Overview
+### Challenge C Solution
+## Other Items
+### Vectors
+### Structures
+### Enums
+### Generics
+### Traits
+## Memory Management
+### Ownership
+### References & Borrowing
+## File Input & Output
+## Error Handling
+## Tying It All Together
+### SHA256 Password Cracker
+### URL Chortener
+### Quiz Game

@@ -251,5 +251,199 @@ fn main() {
 ## Error Handling
 ## Tying It All Together
 ### SHA256 Password Cracker
+https://github.com/HiroNewf/TCM-Security-Courses-Code-and-Notes/blob/main/SHA256_Password_Cracker.rs
+```rust
+use std::env;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+use sha2::{Sha256, Digest};
+use std::process::exit;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() != 2 {
+        println!("Invalid arguments!");
+        println!(">> {} <sha256sum>", args[0]);
+        exit(1);
+    }
+
+    let wanted_hash = &args[1];
+    let password_file = "src/rockyou.txt";
+    let mut attempts = 1;
+
+    println!("Attempting to back: {}!\n", wanted_hash);
+
+    let password_list = File::open(password_file).unwrap();
+    let reader = BufReader::new(password_list);
+
+    for line in reader.lines() {
+        let line = line.unwrap();
+        let password = line.trim().to_owned().into_bytes();
+        let password_hash = format!("{:x}", Sha256::digest(&password));
+        println!("[{}] {} == {}", attempts, std::str::from_utf8(&password).unwrap(), password_hash);
+        if &password_hash == wanted_hash {
+            println!("Password hash found after {} attempts! {} hashes to {}!", attempts, std::str::from_utf8(&password).unwrap(), password_hash);
+            exit(0);
+        }
+        attempts += 1;
+    }
+
+    println!("Password hash not found!");
+}
+```
 ### URL Chortener
+https://github.com/HiroNewf/TCM-Security-Courses-Code-and-Notes/blob/main/URL_Shortener.rs
+```rust
+#![allow(unused)]
+
+use std::env;
+use std::fs::{File, OpenOptions};
+use std::io::{BufRead, BufReader, Write};
+use std::path::PathBuf;
+use rand::{distributions::Alphanumeric, Rng};
+
+fn main() {
+    let mapping_path = "src/mapping.txt";
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() != 2 {
+        println!("Usage: ./url_shortener <url>");
+        return;
+    }
+
+    let url = &args[1];
+
+    if url.starts_with("http") {
+        // Convert long-form URL to short-form URL.
+        let mut rng = rand::thread_rng();
+        let short_url: String = std::iter::repeat(())
+            .map(|()| rng.sample(Alphanumeric) as char)
+            .take(8)
+            .collect();
+
+        println!("Long URL: {}", url);
+        println!("Short URL: {}", short_url);
+
+        // Store the mapping between the short URL and the long URL in a file.
+        let mut mapping_file = match OpenOptions::new().write(true).append(true).open(mapping_path) {
+            Ok(file) => file,
+            Err(_) => {
+                println!("Error opening mapping file");
+                return;
+            }
+        };
+        let mapping = format!("{},{}\n", short_url, url);
+        if let Err(_) = mapping_file.write_all(mapping.as_bytes()) {
+            println!("Error writing to mapping file");
+            return;
+        }
+    } else {
+        // Read the mapping file and redirect the user to the corresponding long URL.
+        let mapping_file = match File::open(mapping_path) {
+            Ok(file) => file,
+            Err(_) => {
+                println!("Error opening mapping file");
+                return;
+            }
+        };
+        let reader = BufReader::new(mapping_file);
+        for line in reader.lines() {
+            let mapping = match line {
+                Ok(line) => line,
+                Err(_) => {
+                    println!("Error reading mapping file");
+                    continue;
+                }
+            };
+            let parts: Vec<&str> = mapping.split(',').collect();
+            if parts.len() != 2 {
+                continue;
+            }
+            let short = parts[0];
+            let long = parts[1];
+            if short == url {
+                println!("Redirecting to {}", long);
+                return;
+            }
+        }
+        println!("Short URL not found");
+    }
+}
+```
 ### Quiz Game
+https://github.com/HiroNewf/TCM-Security-Courses-Code-and-Notes/blob/main/Quiz_Game.rs
+```rust
+#![allow(unused)]
+
+use std::io::{self, Write};
+
+fn main() {
+    let mut correct_answers = 0;
+
+    //Welcome message
+    println!("Welcome to our Quiz Game!");
+    println!("Please select the correct answer for each question.");
+
+    //Question 1
+    println!("1. What is the capital city of France?");
+    println!("A. London");
+    println!("B. Paris");
+    println!("C: Rome");
+    print!("Your answer: ");
+    io::stdout().flush().unwrap();
+
+    let mut answer = String::new();
+    io::stdin().read_line(&mut answer).unwrap();
+
+    if answer.trim().to_ascii_uppercase() == "B" {
+        println!("Correct!");
+        correct_answers += 1;
+    } else {
+        println!("Incorrect.  The correct answer is B.");
+    }
+
+    //Question 2
+    println!("\n2. What is the largest country in the world by area?");
+    println!("A. Russia");
+    println!("B. Canada");
+    println!("C: China");
+    print!("Your answer: ");
+    io::stdout().flush().unwrap();
+
+    answer.clear();
+    io::stdin().read_line(&mut answer).unwrap();
+
+    if answer.trim().to_ascii_uppercase() == "A" {
+        println!("Correct!");
+        correct_answers += 1;
+    } else {
+        println!("Incorrect.  The correct answer is A.");
+    }
+
+    // Question 3
+    println!("\n3. Who is credited with inventing the World Wide Web?");
+    println!("A. Bill Gates");
+    println!("B. Tim Berners-Lee");
+    println!("C. Steve Jobs");
+    print!("Your answer: ");
+    io::stdout().flush().unwrap();
+
+    answer.clear();
+    io::stdin().read_line(&mut answer).unwrap();
+
+    if answer.trim().to_ascii_uppercase() == "B" {
+        println!("Correct!");
+        correct_answers += 1;
+    } else {
+        println!("Incorrect. The correct answer is B.");
+    }
+
+    //Calculate final score
+    let total_questions = 3;
+    let percentage = (correct_answers as f32 / total_questions as f32) * 100.0;
+    
+    println!("\nYou got {} out of {} questions correct ({:.2})%", correct_answers, total_questions, percentage);
+
+}
+```

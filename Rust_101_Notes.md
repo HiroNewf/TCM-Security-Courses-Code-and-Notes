@@ -215,11 +215,117 @@ fn main() {
 ```
 ## Primitives (Compound Types) 
 ### Tuples
+- Fixed size collection of elements of different types
+  - Used to group related data
+  - Declared with parentheses ()
+  - Max values that can be stored is 12
+```rust
+let person = ("John", 42, 1.72); // Basic Tuple
+let (name, age, height) = person; // Can be used for pattern matching
+println!("Name: {}, Age: {}, Height: {}", name, age, height);
+
+let person = ("John", 42, 1.72);
+println!("Name: {}, Age: {}, Height: {}", person.0, person.1, person.2); // Can also be indexed with dot notation
+
+// Can also assign items within the tuples to variables in a more basic way like this
+let person = ("John", 42, 1.72);
+let name = person.0;
+let age = person.1;
+let height = person.2;
+```
 ### Arrays
+- Fixed-size collection of elements of the same type
+  - Declared with brackets []
+  - The length of the arry is part of it's type and therefore it must be known at compile time
+  - Can store up to 32 values
+  - Faster than Tuples
+```rust
+let numbers = [1, 2, 3, 4, 5]; // An array with 5 elements
+println!("The first number is {}", numbers[0]);  // Can be access with indexing notation
+
+let numbers = [1, 2, 3, 4, 5];
+for number in numbers.iter() { println!("{}", number); // Can be iterated over in a for loop
+``` 
 #### Slices
+- Lightweight view into a contiguous sequence of elements in a collection (like array or vectors)
+  - Can be created with an existing collection by specifying a range of indices
+```rust
+let arr = [1, 2, 3, 4, 5]; // Make the array
+let slice = &arr[1..3]; // Make the slice (ending at one before the number you enter after the ..)
+println!("{:?}", slice); // prints "[2, 3]" 
+
+// Slices can be used to pass a subset of elements in a collection to a function
+fn sum(slice: &[i32]) -> i32 {
+  let mut total = 0;
+  for &x in slice {
+    total += x;
+  }
+  total
+}
+
+let arr = [1, 2, 3, 4, 5];
+let slice = &arr[1..3]; // 2 & 3 
+let total = sum(slice);
+println!("The sum is {}", total); // prints "The sum is 5"
+
+// Slices can be used to pass a subset of elements in a collection to a function
+let mut arr = [1, 2, 3, 4, 5]; // make a mutable array 
+let slice = &mut arr[1..3]; // call the mutable array
+slice[0] = 6; // Change the values of the slices
+slice[1] = 7; // Change the values of the slices
+println!("{:?}", arr); // prints "[1, 6, 7, 4, 5]"
+```
 ## Strings
 ### Strings Overview
+- Three main types: `str`, `&str`, and `String`
+  - `str` is a primitive type that represents a sequence of Unicode scalar values
+    - Often used as a slice type to represent borrowed string data
+    - Not really commonly used in programs though
+  - `&str` is a string slice type that represents a borrowed view into a sequence of Unicode scalar values
+    - Read-only type | no modification
+    - Often used to pass string data between functions or to extract substrings from a larger string
+  - `String` is a dynamically-sized string type that represents a sequence of Unicode scalar values
+    - Mutable
+    - Often used to represent user input, file data, or other dynamic text content
+```rust
+// &str type
+fn main() {
+  let message = "hello, world!";
+  let first_word = &message[0..5];
+  println!("The first word is {}", first_word);
+}
+
+// String type
+fn main() {
+  let mut message = String::from("hello");
+  message.push_str(", world!");
+  println!("{}", message);
+}
+```
 ### Escaping
+- Used to represent special characters in string literals and character literals
+- Common escaped characters
+  - `\\` backslash
+  - `\"` double quote
+  - `\'` single quote
+  - `\n` newline
+  - `\r` carriage return
+  - `\t` tab
+  - `\0` null character
+  - `\xNN` hexadecimal escape sequence, where NN is a two-digit hexadecimal number that represents a Unicode scalar value
+  - `\u{NNNN}` Unicode escape sequence, where NNNN is a four-digit hexadecimal number that represents a Unicode scalar value
+```rust
+let message = "Hello, \"world\"!\n"; // Escaped the double quotes and newline
+println!("{}", message);
+
+let heart = '\u{2764}'; // Escaped the Unicode scalar value for a heart symbol
+println!("{}", heart);
+
+// Raw string literals can be used to include backslashes and special characters without escaping them
+// Declared using the r#"..."# syntax
+let message = r#"Hello, "world"!\n"#;
+println!("{}", message); 
+```
 ## User Input
 ### Modules and Libraries
 ### User Input

@@ -328,9 +328,50 @@ println!("{}", message);
 ```
 ## User Input
 ### Modules and Libraries
+- Need to use the standard I/O library
+  - The [documentation](https://doc.rust-lang.org/std/io/index.html) for this is good to look at
+```rust
+use std::io; // import library
+```
 ### User Input
+- User input allows us to take input from the user and then use it in our program
+- To read user input from the command line, the `std::env` module can be used to access the command line arguments passed to the program
+```rust
+use std::env;
+
+fn main() {
+  let args: Vec<String> = env::args().collect(); // get user input
+  println!("The first argument is {}", args[1]); // print to screen
+} 
+```
+- To read user input from the standard input stream, the `std::io::stdin()` function can be used to obtain a handle to the input stream
+  - `std::io::BufRead` trait provides functions for reading lines of input from this stream
+```rust
+use std::io::{self, BufRead}; 
+
+fn main() {
+  let stdin = io::stdin(); // obtain a handle to the standard input stream
+  for line in stdin.lock().lines() { //  obtain a locked reference to the input stream
+    println!("{}", line.unwrap()); // print it out
+  }
+} 
+```
 ## Math
 ### Math Operators
+- `+`: addition
+- `-`: subtraction
+- `*`: multiplication
+- `/`: division
+- `%`: remainder
+```rust
+let x = 10;
+let y = 3;
+let sum = x + y;
+let diff = x - y;
+let product = x * y;
+let quotient = x / y;
+let remainder = x % y;
+```
 ## Dependencies 
 ## Challenge B
 ### Challenge B Overview

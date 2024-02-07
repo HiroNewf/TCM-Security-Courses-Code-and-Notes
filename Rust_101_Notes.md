@@ -595,7 +595,7 @@ use std::io;
 
 fn main() {
     //Opening lines
-    println!("Heath's Rust Calculator");
+    println!("Hiro's Rust Calculator");
     println!("You must select two values (x and y) and an operator.");
 
     //Receive a value for X

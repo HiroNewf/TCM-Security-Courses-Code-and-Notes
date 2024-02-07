@@ -373,11 +373,67 @@ let quotient = x / y;
 let remainder = x % y;
 ```
 ## Dependencies 
+- Stored in the Cargo.toml file
+```rust
+[dependencies]
+rand = "0.8"
+serde = { version = "1.0", features = ["derive"] }
+```
+- Requires  package name and version number
+  - "0.8": exact version number
+  - ">=0.8,<1.0": version range
+  - "*": wildcard
+- Can go to crates.io to see more package information / find packages
+```rust
+// Rand package usage example
+use rand::Rng;
+
+fn main() {
+  let mut rng = rand::thread_rng();
+  let random_number = rng.gen::<u32>();
+  println!("Random number: {}", random_number);
+}
+```
 ## Challenge B
 ### Challenge B Overview
+```rust
+fn main() {
+    /* Build a simple calculator that takes two user inputs
+       then calculates the addition, subtraction, multiplication, and division
+       of those two inputs.
+    */
+}
+```
 ### Challenge B Solution
+```rust
+#![allow(unused)]
+
+use std::io;
+
+fn main() {
+    println!("Give me a value for x");
+    let mut input_x = String::new();
+    io::stdin().read_line(&mut input_x);
+
+    let x: i32 = input_x.trim().parse().expect("Entry was not an integer!");
+    let float_x = x as f64;
+
+    println!("Give me a value for y");
+    let mut input_y = String::new();
+    io::stdin().read_line(&mut input_y);
+
+    let y: i32 = input_y.trim().parse().expect("Entry was not an integer!");
+    let float_y = y as f64;
+
+    println!("The result of {} + {} is {}", x, y, x+y);
+    println!("The result of {} - {} is {}", x, y, x-y);
+    println!("The result of {} * {} is {}", x, y, x*y);
+    println!("The result of {} / {} is {}", x, y, float_x/float_y);
+}
+```
 ## Control Flow
 ### Comparison Operators and Truth Tables
+
 ### Conditional Statements
 ### Match
 ### Loops

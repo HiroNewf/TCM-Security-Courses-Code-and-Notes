@@ -433,9 +433,115 @@ fn main() {
 ```
 ## Control Flow
 ### Comparison Operators and Truth Tables
+- Truth tables and operators using boolean values (true or false)
+- Operators
+  - `==`: equality
+  - `!=`: inequality
+  - `<`: less than
+  - `<=`: less than or equal to
+  - `>`: greater than
+  - `>=`: greater than or equal to
+```rust
+fn main() {
+    let a = 5;
+    let b = 10;
+    let c = true;
+    let d = false;
 
+    println!("a > b: {}", a > b); // false
+    println!("a >= b: {}", a >= b); // false
+    println!("a < b: {}", a < b); // true
+    println!("a <= b: {}", a <= b); // true
+    println!("a == b: {}", a == b); // false
+    println!("a != b: {}", a != b); // true
+    println!("True or False: {}", c || d); //true
+    println!("True or True: {}", c || c); //true
+    println!("False or False: {}", d || d); //false
+    println!("True and False: {}", c && d); //false
+    println!("True and True: {}", c && c); //true
+    println!("False and False: {}", d && d); //false
+}
+```
+- Not the whole truth table (can google that), these are just the really important ones
+- Logical operations
+  - `&&` logical AND
+  - `||` logical OR
+  - `!` logical NOT
 ### Conditional Statements
+- Used to control the flow of execution based on Boolean conditions
+- `if` statements
+  - Can also have one or more `else if` statement
+  - And an optional `else` statement for everything else
+```rust
+let x = 10;
+if x > 0 {
+  println!("x is positive");
+} else if x < 0 {
+  println!("x is negative");
+} else {
+  println!("x is zero");
+}
+```
+- Larger code block example
+```rust
+#![allow(unused)]
+
+use std::io;
+use rand::Rng;
+
+fn main() {
+    //if, else if, else
+
+    println!("How much money do you have?");
+    let mut input_money = String::new();
+    io::stdin().read_line(&mut input_money);
+
+    let money: i32 = input_money.trim().parse().expect("Entry was not an integer");
+
+    println!("How old are you?");
+    let mut input_age = String::new();
+    io::stdin().read_line(&mut input_age);
+
+    let age: i32 = input_age.trim().parse().expect("Entry was not an integer");
+
+    if (age >= 21) && (money >= 5) {
+        println!("We're getting a drink!")
+    } else if (age >=21) && (money < 5) {
+        println!("Come back with more money!")
+    } else if (age < 21) && (money >= 5) {
+        println!("Nice try, kid!")
+    } else {
+        println!("You're too young and too poor.")
+    };
+
+}
+```
 ### Match
+- The second type of conditional statements (`if` statements are the first type)
+- Used to match a value against a set of patterns and execute the corresponding code for the first matching pattern
+  - Can have one or more `arm`s, which consist of a pattern and the corresponding code to execute
+  - All possible values must be covered 
+```rust
+let candidacy_age: i32 = 24;
+
+match candidacy_age {
+  1..=24 => println!("Cannot hold office."),
+  25..=29 => println!("Can run for the House"),
+  30..=34 => println!("Can run for the Senate"),
+  35..=i32::MAX => println!("Can run for President"),
+  _ => println!("Are you an infant?") // Catch all for everything else 
+};
+```
+```rust
+// Can also use Ordering 
+let my_age: i32 = 33;
+let drinking_age: i32 = 21;
+match my_age.cmp(&drinking_age){
+  Ordering::Less => println!("Cannot drink"),
+  Ordering::Equal => println!("Woo, you can drink!"),
+  Ordering::Greater => println("Can drink!"),
+};
+```
 ### Loops
 ## Functions
 ## Challenge C

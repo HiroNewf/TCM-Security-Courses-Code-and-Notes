@@ -543,10 +543,119 @@ match my_age.cmp(&drinking_age){
 };
 ```
 ### Loops
+- `Loop` statements are used to repeat a block of code indefinitely until a `break` statement is encountered
+```rust
+// Counts up and prints each number out until ten, at which point the break statement is hit
+let mut count = 0;
+loop {
+  count += 1;
+  println!("Count: {}", count);
+  if count == 10 {
+    break;
+  }
+}
+```
+- `While` statements are used to repeat an action while a certain condition is true
+```rust
+// loop terminates when the counter reaches a value of 10 and the condition becomes false
+let mut count = 0;
+while count < 10 {
+  count += 1;
+  println!("Count: {}", count);
+}
+```
+- `For` statement is used to iterate over a range, an iterator, or a collection of elements
+```rust
+// iterate over a range of values from 1 to 10, and print each value
+for i in 1..=10 {
+  println!("Count: {}", i);
+}
+
+let numbers = vec![1, 2, 3, 4, 5];
+
+// iterate over a vector of numbers and print each number
+for num in numbers {
+  println!("Number: {}", num);
+} 
+```
 ## Functions
 ## Challenge C
 ### Challenge C Overview
+```rust
+fn main() {
+    // Create a calculator that takes three user inputs (x, y, and operator)
+    // Create functions for +, -, *, /
+    // Use if/else or Match for operator
+    // Might take a little research!
+}
+```
 ### Challenge C Solution
+```rust
+use std::io;
+
+fn main() {
+    //Opening lines
+    println!("Heath's Rust Calculator");
+    println!("You must select two values (x and y) and an operator.");
+
+    //Receive a value for X
+    println!("Please give me a value for X.");
+
+    let mut x = String::new();
+    io::stdin().read_line(&mut x);
+    let x: i32 = x.trim().parse().expect("Entry was not an integer.");
+    let float_x = x as f64;
+
+    //Receive a value for Y
+    println!("Please give me a value for Y.");
+
+    let mut y = String::new();
+    io::stdin().read_line(&mut y);
+    let y: i32 = y.trim().parse().expect("Entry was not an integer.");
+    let float_y = y as f64;
+
+    //Receive an operator
+    println!("Choose an operator: +, -, *, /");
+    let mut operator = String::new();
+    io::stdin().read_line(&mut operator);
+    let operator_slice = operator.trim();
+
+    //Match operator
+    match operator_slice {
+        "+" => {
+            add(x,y);
+        }
+        "-" => {
+            subtract(x,y);
+        }
+        "*" => {
+            multiply(x,y);
+        }
+        "/" => {
+            divide(float_x,float_y);
+        }
+        &_ => {
+            println!("Invalid entry. Exiting program.");
+        }
+    }
+
+
+}
+
+//Math functions
+fn add(x: i32, y:i32) {
+    println!("The result of {} + {} = {}",x,y,x+y);
+}
+fn subtract(x: i32, y:i32) {
+    println!("The result of {} - {} = {}",x,y,x-y);
+}
+fn multiply(x: i32, y:i32) {
+    println!("The result of {} * {} = {}",x,y,x*y);
+}
+fn divide(x: f64, y:f64) {
+    println!("The result of {} / {} = {}",x,y,x/y);
+}
+```
 ## Other Items
 ### Vectors
 ### Structures

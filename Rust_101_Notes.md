@@ -579,6 +579,53 @@ for num in numbers {
 } 
 ```
 ## Functions
+- Used to encapsulate a block of code that performs a specific task and can be called from other parts of the program
+  - `fn` keyword
+- Call them later on, reuse them multiple times
+- Can be anywhere outside of `main` (above, below, doesn't matter)
+```rust
+fn greet(name: &str) { // function named greet, one parameter called name, which is of the &str type
+  println!("Hello, {}!", name);
+} 
+```
+- Can also use the `->` syntax
+```rust
+fn add(x: i32, y: i32) -> i32 { // function named add, two paramters of type i32
+  x + y // add them together
+} 
+```
+- Functions can also have default parameter values, which are used when no value is provided
+```rust
+fn repeat(word: &str, count: u32) -> String {
+  word.repeat(count as usize)
+} 
+
+fn main() { 
+  println!("{}", repeat("hello", 3)); // prints "hellohellohello"
+  println!("{}", repeat("world", 5)); // prints "worldworldworldworldworld"
+  println!("{}", repeat("bye", 1)); // prints "bye"
+} 
+```
+- Functions can also use the keyword `ruturn` to explicitly return a value from the function
+```rust
+fn divide(x: f32, y: f32) -> Result<f32, String> { 
+  if y == 0.0 { 
+    return Err(String::from("Division by zero")); // return error output
+  }
+  Ok(x / y)
+}
+
+fn main() { 
+  match divide(10.0, 2.0) { 
+    Ok(result) => println!("Result: {}", result),
+    Err(err) => println!("Error: {}", err), 
+  }
+  match divide(10.0, 0.0) { 
+    Ok(result) => println!("Result: {}", result),
+    Err(err) => println!("Error: {}", err), 
+  }
+} 
+```
 ## Challenge C
 ### Challenge C Overview
 ```rust
